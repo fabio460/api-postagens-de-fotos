@@ -7,6 +7,7 @@ const {modelTeste} = require('./models')
 
 app.get('/',async(req,res)=>{
    const p = await modelTeste.findAll()
+   
    res.json(p)
 })
 
