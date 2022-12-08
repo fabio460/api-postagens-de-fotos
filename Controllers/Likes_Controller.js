@@ -7,10 +7,10 @@ exports.getLikes =async (req,res)=>{
     res.json(l)
 }
 exports.setLikes =async (req,res)=>{
-    const { id_Usuario, id_Postagem } = req.body
+    const { id_Usuarios, id_Postagems } = req.body
     const l = await Likes.create({
-        id_Usuario,
-        id_Postagem
+        id_Usuarios,
+        id_Postagems
     })
     res.json(l)
 }

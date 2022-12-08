@@ -3,12 +3,12 @@ const {Likes,Postagem,Usuario} = require("../models")
 
 
 exports.createPost = async (req,res)=>{
-    const {imagem,titulo,descricao,id_Usuario} = req.body
+    const {imagem,titulo,descricao,id_Usuarios} = req.body
     const p = Postagem.create({
         imagem,
         titulo,
         descricao,
-        id_Usuario
+        id_Usuarios
     })
     res.json(p)
 }

@@ -1,4 +1,4 @@
-const {Usuario,Postagem,Likes} = require('../models')
+const {Usuario,Postagem,Likes,Comentario,Endereco} = require('../models')
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 require('dotenv').config()
@@ -39,17 +39,32 @@ exports.getUser = async(req,res)=>{
             model:Likes
         },
         {
+            model:Comentario
+        },
+        {
             model:Postagem,
-            include:[{
-                model:Likes,
-                include:[
-                    {
-                      model:Usuario,
-                      attributes: { exclude: ['senha'] },
-                    }
-                ]
-            }]
-        }
+            include:[
+                {
+                    model:Likes,
+                    include:[
+                        {
+                        model:Usuario,
+                        attributes: { exclude: ['senha'] },
+                        }
+                    ]
+                },
+                {
+                    model:Comentario,
+                    include:[
+                        {
+                            model:Usuario,
+                            attributes: { exclude: ['senha'] },
+                        }
+                    ]
+                },
+            ]
+        },
+        
     ]
 })
 res.json(p)
@@ -68,6 +83,17 @@ exports.createUser = async (req,res)=>{
    } catch (error) {
     res.json(error.errors[0].message === "email must be unique" && "Este email ja existe")
    }
+}
+
+exports.deleteUser = async (req,res)=>{
+    const {id} = req.body
+
+    const u = await Usuario.destroy({
+        where:{
+            id
+        }
+    })
+    res.json(u)
 }
 
 exports.login = async(req,res)=>{
@@ -97,4 +123,18 @@ exports.jwtVerify = (req,res,next)=>{
     }
 }
 
-
+exports.setEndereco =async (req,res)=>{
+    const {id_Usuario,cidade} = req.body
+    const e = await Endereco.create({
+        id_Usuario,
+        cidade
+    })
+    res.json(e)
+}
+exports.getEndereco =async (req,res)=>{
+    const {id_Usuario,cidade} = req.body
+    const e = await Endereco.findAll({
+     
+    })
+    res.json(e)
+}
