@@ -1,12 +1,58 @@
-const {Usuario,Postagem} = require('../models')
+const {Usuario,Postagem,Likes} = require('../models')
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 require('dotenv').config()
-exports.getUser = async(req,res)=>{
+
+
+exports.getUsers = async(req,res)=>{
     const p = await Usuario.findAll({
-        include:Postagem
+        attributes: { exclude: ['senha'] },
+        include:[
+            {
+                model:Likes
+            },
+            {
+                model:Postagem,
+                include:[{
+                    model:Likes,
+                    include:[
+                        {
+                          model:Usuario,
+                          attributes: { exclude: ['senha'] },
+                        }
+                    ]
+                }]
+            }
+        ]
     })
     res.json(p)
+}
+exports.getUser = async(req,res)=>{
+   const {id} = req.body
+   const p = await Usuario.findOne({
+    where:{
+        id
+    },
+    attributes: { exclude: ['senha'] },
+    include:[
+        {
+            model:Likes
+        },
+        {
+            model:Postagem,
+            include:[{
+                model:Likes,
+                include:[
+                    {
+                      model:Usuario,
+                      attributes: { exclude: ['senha'] },
+                    }
+                ]
+            }]
+        }
+    ]
+})
+res.json(p)
 }
 
 exports.createUser = async (req,res)=>{
@@ -26,7 +72,6 @@ exports.createUser = async (req,res)=>{
 
 exports.login = async(req,res)=>{
     const {email,senha} = req.body
-    // const senhaHash = bcrypt.compareSync(myPlaintextPassword, hash);
     const user = await Usuario.findOne({
         where:{
             email,

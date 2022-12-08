@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       Postagem.belongsTo(models.Usuario,{
         foreignKey:"id_Usuario"
       })
+      Postagem.hasMany(models.Likes,{
+        foreignKey:"id_Postagem"
+      })
     }
   }
   Postagem.init({
