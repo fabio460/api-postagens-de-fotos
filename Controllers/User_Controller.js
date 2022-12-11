@@ -103,7 +103,7 @@ exports.login = async(req,res)=>{
         where:{
             email,
         },
-        attributes:{exclude:['senha']}
+        attributes:{exclude:['senha','creatAt','updateAt']}
     })
     const senhaHash = user.senha
     if (bcrypt.compareSync(senha,senhaHash)) {
