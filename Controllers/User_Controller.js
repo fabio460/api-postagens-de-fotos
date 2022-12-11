@@ -102,12 +102,13 @@ exports.login = async(req,res)=>{
     const user = await Usuario.findOne({
         where:{
             email,
-        }
+        },
+        attributes:{exclude:['senha']}
     })
     const senhaHash = user.senha
     if (bcrypt.compareSync(senha,senhaHash)) {
-        const auth = jwt.sign({user},process.env.secretKey,{expiresIn:'1d'})
-        res.json({user,auth})
+        const JWT = jwt.sign({user},process.env.secretKey,{expiresIn:'1d'})
+        res.json({user,JWT})
     }else{
         res.json('usuário ou senha invalidos!')
     }
