@@ -119,7 +119,7 @@ exports.jwtVerify = (req,res,next)=>{
             next()
         }        
     } catch (error) {
-       res.json('usuário não autenticado')
+       res.json(null)
     }
 }
 
