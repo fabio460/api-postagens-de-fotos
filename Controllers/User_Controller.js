@@ -28,46 +28,50 @@ exports.getUsers = async(req,res)=>{
     res.json(p)
 }
 exports.getUser = async(req,res)=>{
-   const {id} = req.body
-   const p = await Usuario.findOne({
-    where:{
-        id
-    },
-    attributes: { exclude: ['senha'] },
-    include:[
-        {
-            model:Likes
-        },
-        {
-            model:Comentario
-        },
-        {
-            model:Postagem,
+   try{
+        const {id} = req.body
+        const p = await Usuario.findOne({
+            where:{
+                id
+            },
+            attributes: { exclude: ['senha'] },
             include:[
                 {
-                    model:Likes,
-                    include:[
-                        {
-                        model:Usuario,
-                        attributes: { exclude: ['senha'] },
-                        }
-                    ]
+                    model:Likes
                 },
                 {
-                    model:Comentario,
+                    model:Comentario
+                },
+                {
+                    model:Postagem,
                     include:[
                         {
-                            model:Usuario,
-                            attributes: { exclude: ['senha'] },
-                        }
+                            model:Likes,
+                            include:[
+                                {
+                                model:Usuario,
+                                attributes: { exclude: ['senha'] },
+                                }
+                            ]
+                        },
+                        {
+                            model:Comentario,
+                            include:[
+                                {
+                                    model:Usuario,
+                                    attributes: { exclude: ['senha'] },
+                                }
+                            ]
+                        },
                     ]
                 },
+                
             ]
-        },
-        
-    ]
-})
-res.json(p)
+        })
+        res.json(p)
+   }catch(error){
+      res.json(error)
+   }
 }
 
 exports.createUser = async (req,res)=>{
@@ -97,19 +101,33 @@ exports.deleteUser = async (req,res)=>{
 }
 
 exports.login = async(req,res)=>{
+  try {
     const {email,senha} = req.body
-    const user = await Usuario.findOne({
-        where:{
-            email,
-        },
-    })
-    const senhaHash = user.senha
-    if (bcrypt.compareSync(senha,senhaHash)) {
-        const JWT = jwt.sign({user},process.env.secretKey,{expiresIn:'1d'})
-        res.json({user:user.id,JWT})
+    if (email !=='' && senha !== '') {
+        const user = await Usuario.findOne({
+            where:{
+                email,
+            },
+        })
+        
+        if (user) {
+            const senhaHash = user.senha
+            if (bcrypt.compareSync(senha,senhaHash)) {
+                const JWT = jwt.sign({user},process.env.secretKey,{expiresIn:'1d'})
+                res.json({user:user.id,JWT})
+            }else{
+                res.json('usuário ou senha invalidos!')
+            }  
+        } else {
+            res.json(null)
+        }
+      
     }else{
-        res.json('usuário ou senha invalidos!')
+        res.json('Os campos não podem ser nulos')
     }
+  } catch (error) {
+    res.json(error)
+  }
 }
 
 exports.jwtVerify = (req,res,next)=>{
