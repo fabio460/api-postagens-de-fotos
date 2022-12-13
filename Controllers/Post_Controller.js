@@ -18,6 +18,9 @@ exports.listPost = async (req,res)=>{
         include:[
             Likes,
             Usuario
+        ],
+        order:[
+            ["id","DESC"]
         ]
     })
     res.json(p)
