@@ -35,6 +35,7 @@ exports.getUser = async(req,res)=>{
                 id
             },
             attributes: { exclude: ['senha'] },
+     
             include:[
                 {
                     model:Likes

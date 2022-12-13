@@ -9,3 +9,13 @@ exports.setComentarios =async (req,res)=>{
     })
     res.json(c)
 }
+
+exports.getComentarios =async (req,res)=>{
+    const {id} = req.body
+    const c = await Comentario.findAll({
+      where:{
+        id
+      }
+    })
+    res.json(c)
+}
