@@ -60,6 +60,7 @@
     "nopt": "^6.0.0",
     "once": "^1.4.0",
     "path-parse": "^1.0.7",
+    "pg": "^8.8.0",
     "proto-list": "^1.2.4",
     "pseudomap": "^1.0.2",
     "require-directory": "^2.1.1",
