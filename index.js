@@ -4,7 +4,7 @@ const cors = require('cors')
 const app = express()
 app.use(express.json())
 app.use(cors())
-app.use(Routes)
+// app.use(Routes)
 
 
 // var pg = require('pg');
@@ -27,9 +27,9 @@ app.use(Routes)
 //   });
 // });
 
-// app.get('/',(req,res)=>{
-//     res.send('oi')
-// })
+app.get('/',(req,res)=>{
+    res.send('oi')
+})
 
 
 app.listen(4000,()=>console.log('servidor rodando ...'))
