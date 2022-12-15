@@ -101,6 +101,25 @@ exports.deleteUser = async (req,res)=>{
     res.json(u)
 }
 
+
+exports.updateUser =async (req,res)=>{
+    const {id,nome,email,senha,fotoDePerfil,idade,proficao} = req.body
+    const hash = bcrypt.hashSync(senha, 10);
+    const e = await Usuario.update({
+        nome,
+        email,
+        senha:hash,
+        fotoDePerfil,
+        idade,
+        proficao
+    },{
+        where:{
+            id
+        }
+    })
+    res.json(e)
+}
+
 exports.login = async(req,res)=>{
   try {
     const {email,senha} = req.body
@@ -142,18 +161,3 @@ exports.jwtVerify = (req,res,next)=>{
     }
 }
 
-exports.setEndereco =async (req,res)=>{
-    const {id_Usuario,cidade} = req.body
-    const e = await Endereco.create({
-        id_Usuario,
-        cidade
-    })
-    res.json(e)
-}
-exports.getEndereco =async (req,res)=>{
-    const {id_Usuario,cidade} = req.body
-    const e = await Endereco.findAll({
-     
-    })
-    res.json(e)
-}

@@ -13,6 +13,32 @@ exports.createPost = async (req,res)=>{
     res.json(p)
 }
 
+exports.deletePost = async (req,res)=>{
+    const {id} = req.body
+    const p =await Postagem.destroy({
+        where:{
+            id
+        }
+    })
+    res.json(p)
+}
+
+exports.updatePost = async (req,res)=>{
+    const {imagem,titulo,descricao,id} = req.body
+    const p =await Postagem.update({
+        imagem,
+        titulo,
+        descricao,
+    },
+    {
+        where:{
+            id
+        }
+    }
+    )
+    res.json(p)
+}
+
 exports.listPost = async (req,res)=>{
     const p = await Postagem.findAll({
         include:[
