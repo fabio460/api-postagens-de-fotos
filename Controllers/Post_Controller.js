@@ -55,3 +55,13 @@ exports.listPost = async (req,res)=>{
     })
     res.json(p)
 }
+
+exports.getPostById = async (req,res)=>{
+    const {id} = req.body
+    const p = await Postagem.findOne({
+       where:{
+        id
+       }
+    })
+    res.json(p)
+}

@@ -1,4 +1,4 @@
-const { createPost, listPost, deletePost, updatePost } = require('./Controllers/Post_Controller')
+const { createPost, listPost, deletePost, updatePost, getPostById } = require('./Controllers/Post_Controller')
 const { getUser, createUser, login, jwtVerify, getUsers, deleteUser, updateUser } = require('./Controllers/User_Controller')
 const {getLikes, setLikes} = require('./Controllers/Likes_Controller')
 const { setComentarios,getComentarios } = require('./Controllers/Comentarios_Controller')
@@ -19,4 +19,5 @@ Routes.delete("/deleteUser",deleteUser)
 Routes.put('/updateUser',updateUser)
 Routes.delete('/deletePost',deletePost)
 Routes.put('/updatePost',updatePost)
+Routes.post('/getPostById',getPostById)
 module.exports = Routes
