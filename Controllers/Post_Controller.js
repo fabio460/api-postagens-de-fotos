@@ -15,12 +15,16 @@ exports.createPost = async (req,res)=>{
 
 exports.deletePost = async (req,res)=>{
     const {id} = req.body
-    const p =await Postagem.destroy({
-        where:{
-            id
-        }
-    })
-    res.json(p)
+    try {
+        const p =await Postagem.destroy({
+            where:{
+                id
+            }
+        })
+        res.json(p)
+    } catch (error) {
+        res.json(error)
+    }
 }
 
 exports.updatePost = async (req,res)=>{
