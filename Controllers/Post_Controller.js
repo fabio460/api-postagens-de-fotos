@@ -1,4 +1,4 @@
-const {Likes,Postagem,Usuario} = require("../models")
+const {Likes,Postagem,Usuario,Comentario} = require("../models")
 
 
 
@@ -47,7 +47,8 @@ exports.listPost = async (req,res)=>{
     const p = await Postagem.findAll({
         include:[
             Likes,
-            Usuario
+            Usuario,
+            Comentario
         ],
         order:[
             ["id","DESC"]
