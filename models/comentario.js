@@ -12,19 +12,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Comentario.belongsTo(models.Postagem,{
-        foreignKey:"id_Postagem",
+        foreignKey:"id_Postagems",
         onDelete:"CASCADE"
       })
       Comentario.belongsTo(models.Usuario,{
-        foreignKey:"id_Usuario",
+        foreignKey:"id_Usuarios",
         onDelete:"CASCADE"
       })
     }
   }
   Comentario.init({
-    id_Postagem: DataTypes.INTEGER,
+    id_Postagems: DataTypes.INTEGER,
     body: DataTypes.STRING,
-    id_Usuario:DataTypes.INTEGER
+    id_Usuarios:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Comentario',
