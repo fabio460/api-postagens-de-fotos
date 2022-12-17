@@ -44,6 +44,7 @@ exports.updatePost = async (req,res)=>{
 }
 
 exports.listPost = async (req,res)=>{
+   try {
     const p = await Postagem.findAll({
         include:[
             Likes,
@@ -55,6 +56,9 @@ exports.listPost = async (req,res)=>{
         ]
     })
     res.json(p)
+   } catch (error) {
+    res.json(error)
+   }
 }
 
 exports.getPostById = async (req,res)=>{
