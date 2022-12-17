@@ -104,21 +104,58 @@ exports.deleteUser = async (req,res)=>{
 
 exports.updateUser =async (req,res)=>{
     const {id,nome,email,senha,fotoDePerfil,idade,proficao} = req.body
-    const hash = bcrypt.hashSync(senha, 10);
-    const e = await Usuario.update({
-        nome,
-        email,
-        senha:hash,
-        fotoDePerfil,
-        idade,
-        proficao
-    },{
+    // const hash = bcrypt.hashSync(senha, 10);
+    // const e = await Usuario.update({
+    //     nome,
+    //     email,
+    //     senha:hash,
+    //     fotoDePerfil,
+    //     idade,
+    //     proficao
+    // },{
+    //     where:{
+    //         id
+    //     }
+    // })
+    res.json(nome)
+}
+
+exports.UpdateImagePerfil = async (req,res)=>{
+
+    const {id,fotoDePerfil} = req.body
+    const i = await Usuario.update({
+        fotoDePerfil
+    },
+    {
         where:{
             id
         }
-    })
-    res.json(e)
+    }
+    )
+    return res.json(i)
 }
+
+exports.UpdateUser =async (req,res)=>{
+   const {id,nome,email,senha,idade,proficao} = req.body
+    try {
+        const hash = bcrypt.hashSync(senha, 10);
+        const e = await Usuario.update({
+            nome,
+            email,
+            senha:hash,
+            idade,
+            proficao
+        },{
+            where:{
+                id
+            }
+        })
+        res.json(e)
+    } catch (error) {
+        res.json(error)
+    }
+}
+
 
 exports.login = async(req,res)=>{
   try {
