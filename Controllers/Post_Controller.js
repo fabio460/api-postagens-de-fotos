@@ -47,7 +47,10 @@ exports.listPost = async (req,res)=>{
    try {
     const p = await Postagem.findAll({
         include:[
-            Likes,
+            {
+                model:Likes,
+                include:Usuario
+            },
             Usuario,
             Comentario
         ],
