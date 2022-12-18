@@ -49,7 +49,12 @@ exports.listPost = async (req,res)=>{
         include:[
             {
                 model:Likes,
-                include:Usuario
+                include:[
+                 { 
+                    model:Usuario,
+                    attributes: { exclude: ['senha'] }
+                 }
+                ]
             },
             Usuario,
             Comentario
