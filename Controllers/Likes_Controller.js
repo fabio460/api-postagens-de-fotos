@@ -15,7 +15,7 @@ exports.setLikes =async (req,res)=>{
             id_Usuarios
         }
     })
-//    res.json(likeDado)
+
     if (likeDado.length > 0) {
         const l = await Likes.destroy({
             where:{

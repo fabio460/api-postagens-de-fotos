@@ -57,7 +57,15 @@ exports.listPost = async (req,res)=>{
                 ]
             },
             Usuario,
-            Comentario
+            {
+                model:Comentario,
+                include:[
+                    {
+                        model:Usuario,
+                        attributes: { exclude: ['senha'] }
+                    }
+                ]
+            }
         ],
         order:[
             ["id","DESC"]
