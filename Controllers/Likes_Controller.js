@@ -11,8 +11,7 @@ exports.setLikes =async (req,res)=>{
 
     const likeDado = await Likes.findOne({
         where:{
-            id_Usuarios,
-            
+            id_Usuarios
         }
     })
     if (likeDado) {
