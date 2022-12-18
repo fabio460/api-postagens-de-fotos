@@ -9,9 +9,9 @@ exports.getLikes =async (req,res)=>{
 exports.setLikes =async (req,res)=>{
     const { id_Usuarios, id_Postagems } = req.body
 
-    const likeDado = await Likes.findOne({
+    const likeDado = await Likes.findAll({
         where:{
-            id_Usuarios
+            id_Usuarios,id_Postagems
         }
     })
 
@@ -21,7 +21,7 @@ exports.setLikes =async (req,res)=>{
 
         const l = await Likes.destroy({
             where:{
-                id_Usuarios
+                id_Usuarios,id_Postagems
             }
         })
         res.json(l)
