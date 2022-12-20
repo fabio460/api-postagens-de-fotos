@@ -136,13 +136,12 @@ exports.UpdateImagePerfil = async (req,res)=>{
 }
 
 exports.UpdateUser =async (req,res)=>{
-   const {id,nome,email,senha,idade,proficao} = req.body
+   const {id,nome,email,idade,proficao} = req.body
     try {
-        const hash = bcrypt.hashSync(senha, 10);
+        //const hash = bcrypt.hashSync(senha, 10);
         const e = await Usuario.update({
             nome,
             email,
-            senha:hash,
             idade,
             proficao
         },{
