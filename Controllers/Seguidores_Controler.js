@@ -1,7 +1,15 @@
 const {seguidores} = require('../models')
+
+
 exports.getSeguidores = async(req,res)=>{
-   const s = seguidores.findAll()
-   res.json(s)
+    const {id_Usuarios,id_Seguidor} = req.body
+    const s =await seguidores.findOne({
+        where:{
+            id_Usuarios,
+            id_Seguidor
+        }
+    })
+    res.json(s)
 }
 
 exports.Seguir = async(req,res)=>{

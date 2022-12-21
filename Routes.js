@@ -24,6 +24,6 @@ Routes.put('/updateImagePerfil',UpdateImagePerfil)
 Routes.delete('/deletePost',deletePost)
 Routes.put('/updatePost',UpdateUser)
 Routes.post('/getPostById',getPostById)
-Routes.get('/getSeguidore',getSeguidores)
+Routes.post('/getSeguidore',getSeguidores)
 Routes.post('/seguir',Seguir)
 module.exports = Routes
