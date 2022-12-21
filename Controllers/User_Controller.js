@@ -47,7 +47,8 @@ exports.getUser = async(req,res)=>{
                     model:seguidores,
                     include:[
                         {
-                            model:Usuario
+                            model:Usuario,
+                            attributes: { exclude: ['senha'] },
                         }
                     ]
                 },
