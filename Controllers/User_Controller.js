@@ -1,4 +1,4 @@
-const {Usuario,Postagem,Likes,Comentario,Endereco} = require('../models')
+const {Usuario,Postagem,Likes,Comentario,seguidores} = require('../models')
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 require('dotenv').config()
@@ -42,6 +42,14 @@ exports.getUser = async(req,res)=>{
                 },
                 {
                     model:Comentario
+                },
+                {
+                    model:seguidores,
+                    include:[
+                        {
+                            model:Usuario
+                        }
+                    ]
                 },
                 {
                     model:Postagem,
